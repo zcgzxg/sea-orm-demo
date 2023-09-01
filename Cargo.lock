@@ -1167,11 +1167,8 @@ version = "0.1.0"
 dependencies = [
  "async-std",
  "clap",
- "lazy_static",
- "sea-orm",
+ "sea-orm-demo",
  "sea-orm-migration",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -1826,8 +1823,11 @@ dependencies = [
 name = "sea-orm-demo"
 version = "0.1.0"
 dependencies = [
+ "lazy_static",
  "sea-orm",
  "serde",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]

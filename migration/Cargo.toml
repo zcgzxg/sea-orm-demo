@@ -11,8 +11,5 @@ sea-orm-migration = { version = "0.12.2", features = [
     "runtime-async-std-rustls",
 ] }
 clap = { version = "4.4.1", features = ["derive"] }
-lazy_static = "1.4.0"
 async-std = { workspace = true }
-sea-orm = { workspace = true }
-tracing-subscriber = "0.3.17"
-tracing = "0.1.37"
+sea-orm-demo = { path = "../../sea-orm-demo" }

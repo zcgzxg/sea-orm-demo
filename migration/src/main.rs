@@ -1,13 +1,9 @@
 mod migration;
 
 use clap::{Parser, ValueEnum};
-use lazy_static::lazy_static;
 use migration::Migrator;
-use sea_orm::{ConnectOptions, Database};
+use sea_orm_demo::create_example_conn;
 use sea_orm_migration::prelude::*;
-use std::env;
-use tracing;
-use tracing_subscriber;
 
 #[derive(Parser, Debug)]
 #[command(author, version, about, long_about = None)]
@@ -35,22 +31,10 @@ enum Mode {
     Down,
 }
 
-lazy_static! {
-    static ref CONN_URL: String = env::var("DATABASE_URL").unwrap();
-}
-
 #[async_std::main]
 async fn main() -> Result<(), sea_orm::error::DbErr> {
-    lazy_static::initialize(&CONN_URL);
-    tracing_subscriber::fmt()
-        .with_max_level(tracing::Level::DEBUG)
-        .with_test_writer()
-        .init();
-
     let cli = Cli::parse();
-    let mut connect_opts = ConnectOptions::new(&CONN_URL.to_owned());
-    connect_opts.max_connections(200);
-    let db = &Database::connect(connect_opts).await?;
+    let db = &create_example_conn().await?;
 
     match cli.mode {
         Mode::Refresh => Migrator::refresh(db).await,
